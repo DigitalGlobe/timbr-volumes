@@ -26,6 +26,7 @@ const handlers = {
   '/': {
     GET: function list() {
       return $exec( 'sudo zfs list -H -o name,used,available,mountpoint,sharenfs' )
+        .then( out => `${out}\n` )
         .then( ...respond( this ) );
     },
     POST: function create() {
