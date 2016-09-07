@@ -22,8 +22,7 @@ curl http://10.0.0.10:8000 # GET
 #   "name":"juno-pool",
 #   "used":"408K",
 #   "available":"984G",
-#   "mountpoint":
-#   "/juno-pool",
+#   "mountpoint":"/juno-pool",
 #   "sharenfs":"off"
 # }]
 ```
