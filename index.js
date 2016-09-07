@@ -8,7 +8,7 @@ const root = 'juno-pool';
 
 const $exec = cmd =>
   new Promise( ( resolve, reject ) =>
-    exec( cmd, ( err, stdout ) => err ? reject( err ) : resolve( stdout ) )
+    exec( cmd, ( err, stdout ) => err ? reject( err ) : resolve( stdout.trim() ) )
 )
 
 const respond = ctx => [
@@ -22,11 +22,15 @@ const respond = ctx => [
   }
 ];
 
+const zip = fields =>
+  ( memo, item, index ) => Object.assign( memo, { [fields[index]]: item } )
+
 const handlers = {
   '/': {
     GET: function list() {
-      return $exec( 'sudo zfs list -H -o name,used,available,mountpoint,sharenfs' )
-        .then( out => `${out}\n` )
+      const fields = [ 'name', 'used', 'available', 'mountpoint', 'sharenfs' ];
+      return $exec( `sudo zfs list -H -o ${fields.join( ',' )}` )
+        .then( out => out.split( '\n' ).map( line => line.split( /\s/ ).reduce( zip( fields ), {} ) )
         .then( ...respond( this ) );
     },
     POST: function create() {
