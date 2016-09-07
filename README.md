@@ -36,7 +36,7 @@ curl --data "name=foo&size=2G" http://10.0.0.10:8000/ # POST name and size
 ```
 #### Delete
 ```bash
-curl --date "name=foo" -X DELETE http://10.0.0.10:8000 # DELETE with name in body
+curl --data "name=foo" -X DELETE http://10.0.0.10:8000 # DELETE with name in body
 
 # 200
 ```
