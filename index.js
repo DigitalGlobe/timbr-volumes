@@ -6,7 +6,7 @@ const $exec = cmd =>
     exec( cmd, ( err, stdout ) =>
       err ? reject( err ) : resolve( stdout.trim() )
     );
-  })
+  )
 
 const respond = ctx => [
   data => {
