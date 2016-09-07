@@ -30,7 +30,9 @@ const handlers = {
     GET: function list() {
       const fields = [ 'name', 'used', 'available', 'mountpoint', 'sharenfs' ];
       return $exec( `sudo zfs list -H -o ${fields.join( ',' )}` )
-        .then( out => out.split( '\n' ).map( line => line.split( /\s/ ).reduce( zip( fields ), {} ) ) )
+        .then( out => JSON.parse(
+          out.split( '\n' ).map( line => line.split( /\s/ ).reduce( zip( fields ), {} ) )
+        ))
         .then( ...respond( this ) );
     },
     POST: function create() {
