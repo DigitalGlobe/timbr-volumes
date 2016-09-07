@@ -24,12 +24,12 @@ const app = koa();
 
 const handlers = {
   '/': {
-    GET: function* list() {
-      yield $exec( 'sudo zfs list -H -o name,used,available,mountpoint,sharenfs' )
+    GET: function list() {
+      return $exec( 'sudo zfs list -H -o name,used,available,mountpoint,sharenfs' )
         .then( ...respond( this ) );
     },
-    POST: function* create() {
-      yield $exec( `sudo zfs create -o quota=${this.size} -o sharenfs=on juno-pool/${this.name}` )
+    POST: function create() {
+      return $exec( `sudo zfs create -o quota=${this.size} -o sharenfs=on juno-pool/${this.name}` )
         .then( ...respond( this ) );
     }
   }
@@ -37,7 +37,7 @@ const handlers = {
 
 app.use(function *() {
   const handler = ( handlers[this.url] || {} )[this.method];
-  if ( handler ) handler.call( this );
+  if ( handler ) yield handler.call( this );
 });
 
 app.listen( port, host, () => console.log( `Listening on ${host}:${port}` ) );
