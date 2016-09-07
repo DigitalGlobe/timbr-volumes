@@ -12,5 +12,8 @@
   },
   "author": "",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/timbr-io/timbr-volumes#readme"
+  "homepage": "https://bitbucket.org/timbr-io/timbr-volumes#readme",
+  "dependencies": {
+    "koa": "^1.2.2"
+  }
 }
