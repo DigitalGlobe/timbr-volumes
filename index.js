@@ -1,9 +1,9 @@
 const exec = require( 'child_process' ).exec;
 const koa = require('koa');
 
-const $exec = ( ...args ) =>
+const $exec = cmd =>
   new Promise( ( resolve, reject ) =>
-    exec( ...args, ( err, stdout ) =>
+    exec( cmd, ( err, stdout ) =>
       err ? reject( err ) : resolve( stdout.trim() )
     );
   })
