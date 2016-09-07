@@ -3,10 +3,8 @@ const koa = require('koa');
 
 const $exec = cmd =>
   new Promise( ( resolve, reject ) =>
-    exec( cmd, ( err, stdout ) =>
-      err ? reject( err ) : resolve( stdout.trim() )
-    );
-  )
+    exec( cmd, ( err, stdout ) => err ? reject( err ) : resolve( stdout.trim() ) )
+)
 
 const respond = ctx => [
   data => {
