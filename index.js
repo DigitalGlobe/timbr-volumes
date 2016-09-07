@@ -4,10 +4,11 @@ const bodyParser = require( 'koa-bodyparser' );
 
 const host = '10.0.0.10';
 const port = 8000;
+const root = 'juno-pool';
 
 const $exec = cmd =>
   new Promise( ( resolve, reject ) =>
-    exec( cmd, ( err, stdout ) => err ? reject( err ) : resolve( stdout.trim() ) )
+    exec( cmd, ( err, stdout ) => err ? reject( err ) : resolve( stdout ) )
 )
 
 const respond = ctx => [
@@ -29,7 +30,12 @@ const handlers = {
     },
     POST: function create() {
       const body = this.request.body;
-      return $exec( `sudo zfs create -o quota=${body.size} -o sharenfs=on juno-pool/${body.name}` )
+      return $exec( `sudo zfs create -o quota=${body.size} -o sharenfs=on ${root}/${body.name}` )
+        .then( ...respond( this ) );
+    },
+    DELETE: function destroy() {
+      const body = this.request.body;
+      return $exec( `sudo zfs destroy ${root}/${body.name}` )
         .then( ...respond( this ) );
     }
   }
