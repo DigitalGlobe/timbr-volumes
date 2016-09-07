@@ -1,6 +1,9 @@
 const exec = require( 'child_process' ).exec;
 const koa = require('koa');
 
+const host = '10.0.0.10';
+const port = 8000;
+
 const $exec = cmd =>
   new Promise( ( resolve, reject ) =>
     exec( cmd, ( err, stdout ) => err ? reject( err ) : resolve( stdout.trim() ) )
@@ -37,4 +40,4 @@ app.use(function *() {
   if ( handler ) handler.call( this );
 });
 
-app.listen( 8000, '10.0.0.10' );
+app.listen( port, host, () => console.log( `Listening on ${host}:${port}` ) );
