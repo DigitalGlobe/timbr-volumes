@@ -9,7 +9,7 @@ const root = 'juno-pool';
 const $exec = cmd =>
   new Promise( ( resolve, reject ) =>
     exec( cmd, ( err, stdout ) => err ? reject( err ) : resolve( stdout.trim() ) )
-)
+  )
 
 const respond = ctx => [
   data => {
@@ -35,7 +35,7 @@ const handlers = {
     },
     POST: function create() {
       const body = this.request.body;
-      return $exec( `sudo zfs create -o quota=${body.size} -o sharenfs=on ${root}/${body.name}` )
+      return $exec( `sudo zfs clone -o quota=${body.size} -o sharenfs=on <snapshot> ${root}/${body.name}` )
         .then( ...respond( this ) );
     },
     DELETE: function destroy() {
