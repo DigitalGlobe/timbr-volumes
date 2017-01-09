@@ -2,7 +2,7 @@ const exec = require( 'child_process' ).exec;
 const koa = require('koa');
 const bodyParser = require( 'koa-bodyparser' );
 
-const host = '10.0.0.10';
+const host = '0.0.0.0';
 const port = 8000;
 const root = 'juno-pool';
 
