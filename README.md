@@ -6,6 +6,7 @@
 ```
 cd timbr-volumes
 nvm use
+npm i -g pm2
 git pull
 npm i
 pm2 restart all
