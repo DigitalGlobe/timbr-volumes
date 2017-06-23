@@ -35,7 +35,7 @@ const handlers = {
     },
     POST: function create() {
       const body = this.request.body;
-      return $exec( `sudo zfs clone -o quota=${body.size} juno-pool/gremlin@base ${root}/${body.name}` )
+      return $exec( `sudo zfs create -o quota=${body.size} ${root}/${body.name}` )
         .then( ...respond( this ) );
     },
     DELETE: function destroy() {
